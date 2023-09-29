@@ -8,7 +8,7 @@ pipeline{
             steps{
                 script{
                           gitCheckout(
-                            branch: "main"
+                            branch: "main",
                             url: "https://github.com/ybsgit/mrdevops_java_app"
                           )
                    }
