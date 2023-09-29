@@ -40,7 +40,7 @@ pipeline{
         {
             steps{
                 script{
-                    sonarAnalysis()
+                    sonarAnalysis('sonar')
                 }
             }
         }
