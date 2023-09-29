@@ -22,9 +22,12 @@ pipeline{
             }
         }
         stage('Integration testing: mvn')
-        {
+        { 
+            steps
+            {
             script{
                 mvnIntTest()
+            }
             }
         }
     }
