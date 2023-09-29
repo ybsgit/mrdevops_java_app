@@ -21,5 +21,11 @@ pipeline{
                 }
             }
         }
+        stage('Integration testing: mvn')
+        {
+            script{
+                mvnIntTest()
+            }
+        }
     }
 }
