@@ -36,5 +36,13 @@ pipeline{
             }
             }
         }
+        stage('Static code analysis: sonar')
+        {
+            steps{
+                script{
+                    sonarAnalysis()
+                }
+            }
+        }
     }
 }
