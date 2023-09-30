@@ -5,7 +5,7 @@ pipeline{
     parameters{
       choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
       string(name: 'ImageName',description: 'Name of docker build',defaultValue: 'javapp')
-      string(name: 'ImageTag',description: 'Tag of docker build',defaultValue: 'javapp')
+      string(name: 'ImageTag',description: 'Tag of docker build',defaultValue: 'v1')
       string(name: 'AppName',description: 'name of application',defaultValue: 'web927')
       string(name: 'AWSAccountId',description: 'AWSAccountId',defaultValue: '348152127881')
       string(name: 'Region',description: 'AWS Region',defaultValue: 'us-east-1')
