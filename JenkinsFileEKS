@@ -43,7 +43,7 @@ stages{
             }
         }
         steps{
-            sh 'kubectl get pods'
+            sh 'whoam && kubectl get pods'
         }
     }
 }
