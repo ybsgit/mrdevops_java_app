@@ -29,25 +29,9 @@ stages{
         withCredentials([usernamePassword(credentialsId: 'aws-cred-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
             sh """
             aws eks update-kubeconfig --region us-east-1 --name "demo-cluster1"
-
+            kubectl get pods 
             """
         }
-        }
-    }
-    stage('Use kubectl with EKS config'){
-        agent{
-            docker{
-                image "bitnami/kubectl:1.23.0"
-                reuseNode true 
-                 args  '--entrypoint="" -v /var/lib/jenkins/.kube/config:/tmp/.kube/config'
-            }
-        }
-        steps{
-            sh """
-            pwd 
-            ls -la
-            kubectl get pods --kubeconfig=/tmp/.kube/config
-           """
         }
     }
 }
