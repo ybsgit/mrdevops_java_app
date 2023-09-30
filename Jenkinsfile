@@ -44,5 +44,12 @@ pipeline{
                 }
             }
         }
+        stage('Wait for quality gate'){
+              steps{
+                script{
+                    qualityGate('sonar')
+                }
+              }
+        }
     }
 }
