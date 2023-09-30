@@ -76,10 +76,10 @@ pipeline{
             }
             
         }
-        stage('Push Image to Docker Hub')
+        stage('Push Image to Docker Hub and/or ECR')
         {
             steps{
-                pushImage("${params.ImageName}","${params.ImageTag}","${params.AppName}")
+                pushImage1("${params.ImageName}","${params.ImageTag}","${params.AppName}","${params.AWSAccountId}","${params.Region}")
             }
         }
     }
