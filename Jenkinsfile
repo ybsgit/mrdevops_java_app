@@ -67,5 +67,9 @@ pipeline{
                 dockerBuild1("${params.ImageName}","${params.ImageTag}","${params.AppName}")
             }
         }
+        stage('Docker image scan')
+        {
+            scanImage("${params.ImageName}","${params.ImageTag}","${params.AppName}")
+        }
     }
 }
