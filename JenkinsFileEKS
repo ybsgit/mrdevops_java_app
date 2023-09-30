@@ -39,15 +39,16 @@ stages{
             docker{
                 image "bitnami/kubectl"
                 reuseNode true 
-                 args  '--entrypoint="" -v /var/lib/jenkins/.kube/config:/tmp/.kube/config'
+                 args  '--entrypoint=""'
+                   // -v /var/lib/jenkins/.kube/config:/tmp/.kube/config
             }
         }
         steps{
             sh """
             pwd 
             ls -la
-            kubectl get pods --kubeconfig=/tmp/.kube/config'
-"""
+            kubectl get pods --kubeconfig=/var/lib/jenkins/.kube/config
+           """
         }
     }
 }
