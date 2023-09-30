@@ -82,5 +82,24 @@ pipeline{
                 pushImage1("${params.ImageName}","${params.ImageTag}","${params.AppName}","${params.AWSAccountId}","${params.Region}")
             }
         }
+        stage('Create EKS Cluster'){
+            agent{
+                docker{
+                    image: 'hashicorp/terraform'
+                     reuseNode true
+                }
+            }
+            steps{
+                script{
+                    sh 'ls -la'
+                    dir('eks_module')
+                    {
+                        terraform init 
+                        terraform plan --var-file=config/terraform.tfvars 
+                        terraform apply --var-file=config/terraform.tfvars --auto-approve
+                    }
+                }
+            }
+        }
     }
 }
