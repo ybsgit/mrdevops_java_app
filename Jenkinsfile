@@ -4,6 +4,9 @@ pipeline{
     agent any 
     parameters{
       choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
+      string(name: 'ImageName',description: 'Name of docker build',defaultValue: 'javapp')
+      string(name: 'ImageTag',description: 'Tag of docker build',defaultValue: 'javapp')
+      string(name: 'AppName',description: 'name of application',defaultValue: 'web927')
     }
     stages{
       
@@ -56,6 +59,12 @@ pipeline{
                 script{
                     mvnBuild1() 
                 }
+            }
+        }
+        stage('Docker Build')
+        {
+            steps{
+                dockerBuild1("${params.ImageName}","${params.ImageTag}","${params.AppName}")
             }
         }
     }
