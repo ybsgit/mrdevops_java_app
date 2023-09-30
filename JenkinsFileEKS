@@ -9,6 +9,7 @@ stages{
         docker{
           image "hashicorp/terraform"
           reuseNode true 
+          args  '--entrypoint=""'
        }
        }
        steps{
