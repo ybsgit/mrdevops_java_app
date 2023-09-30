@@ -63,6 +63,7 @@ stages{
                         sh """
                         ls -la
                         cd eks_module 
+                         terraform init 
                         terraform destroy --var-file=config/terraform.tfvars --auto-approve
                         """
        }
