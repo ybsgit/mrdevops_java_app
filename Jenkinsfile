@@ -69,7 +69,10 @@ pipeline{
         }
         stage('Docker image scan')
         {
-            scanImage("${params.ImageName}","${params.ImageTag}","${params.AppName}")
+            steps{
+                scanImage("${params.ImageName}","${params.ImageTag}","${params.AppName}")
+            }
+            
         }
     }
 }
