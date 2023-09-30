@@ -39,7 +39,7 @@ stages{
             docker{
                 image "bitnami/kubectl"
                 reuseNode true 
-                 args  '--entrypoint="" -v ~/.kubeconfig:~/.kubeconfig'
+                 args  '--entrypoint="" -v /var/lib/jenkins/.kube/config:/root/.kube/config'
             }
         }
         steps{
