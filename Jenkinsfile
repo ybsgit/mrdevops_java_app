@@ -74,5 +74,11 @@ pipeline{
             }
             
         }
+        stage('Push Image to Docker Hub')
+        {
+            steps{
+                pushImage("${params.ImageName}","${params.ImageTag}","${params.AppName}")
+            }
+        }
     }
 }
