@@ -7,6 +7,8 @@ pipeline{
       string(name: 'ImageName',description: 'Name of docker build',defaultValue: 'javapp')
       string(name: 'ImageTag',description: 'Tag of docker build',defaultValue: 'javapp')
       string(name: 'AppName',description: 'name of application',defaultValue: 'web927')
+      string(name: 'AWSAccountId',description: 'AWSAccountId',defaultValue: '348152127881')
+      string(name: 'Region',description: 'AWS Region',defaultValue: 'us-east-1')
     }
     stages{
       
@@ -64,7 +66,7 @@ pipeline{
         stage('Docker Build')
         {
             steps{
-                dockerBuild1("${params.ImageName}","${params.ImageTag}","${params.AppName}")
+                dockerBuild1("${params.ImageName}","${params.ImageTag}","${params.AppName}","${params.AWSAccountId}","${params.Region}")
             }
         }
         stage('Docker image scan')
