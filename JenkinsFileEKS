@@ -3,8 +3,14 @@ pipeline{
 
 agent any 
 
+parameters{
+    choice(name: 'EKS', choices: ['create', 'destroy'], description: 'Pick something')
+}
 stages{
     stage('Create ECR'){
+        when{ 
+          expression{ params.EKS == 'create'}   
+        }
        agent{
         docker{
           image "hashicorp/terraform"
@@ -22,9 +28,13 @@ stages{
                         terraform plan --var-file=config/terraform.tfvars 
                         terraform apply --var-file=config/terraform.tfvars --auto-approve
                         """
-       }}
+       }
+       }
     }
     stage("Update EKS Cluster Credentials"){
+                when{ 
+          expression{ params.EKS == 'create'}   
+        }
         steps{
         withCredentials([usernamePassword(credentialsId: 'aws-cred-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
             sh """
@@ -33,6 +43,30 @@ stages{
             """
         }
         }
+    }
+    stage('destroy EKS')
+    {
+        when{ 
+          expression{ params.EKS == 'destroy'}   
+        }
+               agent{
+        docker{
+          image "hashicorp/terraform"
+          reuseNode true 
+          args  '--entrypoint=""'
+       }
+       }
+
+       steps{
+        withCredentials([usernamePassword(credentialsId: 'aws-cred-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+
+                        sh """
+                        ls -la
+                        cd eks_module 
+                        terraform destroy --var-file=config/terraform.tfvars --auto-approve
+                        """
+       }
+       }
     }
 }
 }
