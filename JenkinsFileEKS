@@ -13,6 +13,8 @@ stages{
        }
        }
        steps{
+        withCredentials([usernamePassword(credentialsId: 'aws-cred-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
+
                         sh """
                         ls -la
                         cd eks_module 
@@ -20,7 +22,7 @@ stages{
                         terraform plan --var-file=config/terraform.tfvars 
                         terraform apply --var-file=config/terraform.tfvars --auto-approve
                         """
-       }
+       }}
     }
 }
 }
