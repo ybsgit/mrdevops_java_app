@@ -6,8 +6,10 @@ agent any
 stages{
     stage('Create ECR'){
        agent{
+        docker{
           image "hashicorp/terraform"
           reuseNode true 
+       }
        }
        steps{
                         sh """
