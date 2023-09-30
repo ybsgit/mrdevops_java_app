@@ -85,7 +85,7 @@ pipeline{
         stage('Create EKS Cluster'){
             agent{
                 docker{
-                    image: 'hashicorp/terraform'
+                     image 'hashicorp/terraform'
                      reuseNode true
                 }
             }
