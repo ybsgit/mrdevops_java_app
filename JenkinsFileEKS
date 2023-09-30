@@ -37,7 +37,7 @@ stages{
     stage('Use kubectl with EKS config'){
         agent{
             docker{
-                image "bitnami/kubectl"
+                image "bitnami/kubectl:1.23.0"
                 reuseNode true 
                  args  '--entrypoint="" -v /var/lib/jenkins/.kube/config:/tmp/.kube/config'
             }
