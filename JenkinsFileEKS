@@ -43,7 +43,7 @@ stages{
             }
         }
         steps{
-            sh 'whoam && kubectl get pods'
+            sh 'kubectl get pods --kubeconfig=/root/.kube/config'
         }
     }
 }
