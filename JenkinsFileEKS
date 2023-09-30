@@ -26,10 +26,12 @@ stages{
     }
     stage("Update EKS Cluster Credentials"){
         steps{
+        withCredentials([usernamePassword(credentialsId: 'aws-cred-01', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
             sh """
             aws eks update-kubeconfig --region us-east-1 --name "demo-cluster1"
 
             """
+        }
         }
     }
     stage('Use kubectl with EKS config'){
