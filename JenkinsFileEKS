@@ -24,5 +24,25 @@ stages{
                         """
        }}
     }
+    stage("Update EKS Cluster Credentials"){
+        steps{
+            sh """
+            aws eks update-kubeconfig --region us-east-1 --name "demo-cluster1"
+
+            """
+        }
+    }
+    stage('Use kubectl with EKS config'){
+        agent{
+            docker{
+                image "bitnami/kubectl"
+                reuseNode true 
+                 args  '--entrypoint="" -v ~/.kubeconfig:~/.kubeconfig'
+            }
+        }
+        steps{
+            sh 'kubectl get pods'
+        }
+    }
 }
 }
